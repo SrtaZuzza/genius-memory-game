@@ -1,0 +1,61 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background-color: #3c2c68;
+}
+
+.mainGame {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.genius {
+    display: grid;
+    grid-template-areas: 'verde vermelho' /* COR EM PT-BR POR CAUSA DOS NOMES RESERVADOS*/
+    'amarelo azul';
+    grid-gap: 10px;
+    border: 15px solid #c1d9f2;
+    background-color: #c1d9f2;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    padding-bottom: 100%;
+    /* to use viewport based units we can safely override the old units in this way */
+    padding-bottom: 0vw;
+    width: 25vw;
+    height: 25vw;
+}
+
+.green {
+    grid-area: verde;
+    background-color: #42bc7f;
+    border-top-left-radius: 100%;
+}
+
+.red {
+    grid-area: vermelho;
+    background-color: #a52639;
+    border-top-right-radius: 100%;
+}
+
+.yellow {
+    grid-area: amarelo;
+    background-color: #ffe091;
+    border-bottom-left-radius: 100%;
+}
+
+.blue {
+    grid-area: azul;
+    background-color: #354ab2;
+    border-bottom-right-radius: 100%;
+}
+
+.selected, .blue:hover, .green:hover, .red:hover, .yellow:hover {
+    filter: saturate(200%);
+}
