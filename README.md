@@ -1,4 +1,4 @@
-# Jogo de memória Genius
+# Jogo de memória Genius 🎮🚥
 
 Projeto da Digital Innovation One onde o desafio era criar um jogo Gênesis utilizando apenas HTML, CSS e Javascript.
 
