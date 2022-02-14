@@ -1,16 +1,27 @@
-let order = [];
-let clickedOrder = [];
-let score = 0;
 
 // 0 - green
 // 1 - red
 // 2 - yellow
 // 3 - blue
 
+let order = [];
+let clickedOrder = [];
+let score = 0;
+var timer;
+
 const blue = document.querySelector('.blue');
 const red = document.querySelector('.red');
 const green = document.querySelector('.green');
 const yellow = document.querySelector('.yellow');
+
+const noteGreen = new Audio('Audio/Green_E4.oga');
+const noteRed = new Audio('Audio/Red_A4.oga');
+const noteYellow = new Audio('Audio/Yellow_C5.oga');
+const noteBlue = new Audio('Audio/Blue_E5.oga');
+
+const colors = [green, red, yellow, blue];
+const notes = [noteGreen, noteRed, noteYellow, noteBlue];
+const start = document.querySelector('.start');
 
 //ordem aleatória de cores
 let shuffleOrder = () => {
@@ -20,19 +31,20 @@ let shuffleOrder = () => {
 
     for(let i in order) {
         let elementColor = createColorElement(order[i]);
-        lightColor(elementColor, Number(i) + 1);
+        lightColor(elementColor, order[i], Number(i) + 1);
     }
 }
 
 //acende próxima cor
-let lightColor = (element, number) => {
-    number = number * 500;
+let lightColor = (element, color, number) => {
+    number = number * 1000;
     setTimeout(() => {
         element.classList.add('selected'); 
-    }, number - 250);
+        notes[color].play();
+    }, number - 500);
     setTimeout(() => {
         element.classList.remove('selected');
-    }, number + 250);
+    }, number);
 }
 
 //checa ordem do input
@@ -44,7 +56,7 @@ let checkOrder = () => {
         }
     }
     if(clickedOrder.length == order.length) {
-        alert(`Pontuação: ${score}\nVocê acertou! Iniciando próximo nível`);
+        // alert(`Pontuação: ${score}\nVocê acertou! Iniciando próximo nível`);
         nextLevel();
     }
 }
@@ -53,24 +65,21 @@ let checkOrder = () => {
 let click = (color) => {
     clickedOrder[clickedOrder.length] = color;
     createColorElement(color).classList.add('selected');
+    notes[color].play();
 
     setTimeout(() => {
         createColorElement(color).classList.remove('selected');
-        checkOrder();
     }, 250);
+    timer = window.setTimeout(() => { // prevent timer too early for faster players
+        if(order.length != 0) { //because I like to play the notes before start
+            checkOrder();
+        }
+    }, 1500);
 }
 
 //retorna cor
 let createColorElement = (color) => {
-    if(color == 0) {
-        return green;
-    } else if (color == 1) {
-        return red;
-    } else if (color == 2) {
-        return yellow;
-    } else if (color == 3) {
-        return blue;
-    }
+    return colors[color];
 }
 
 let nextLevel = () => {
@@ -82,7 +91,6 @@ let gameOver = () => {
     alert(`Pontuação: ${score}\nSequência incorreta!\nClique em OK para tentar novamente`);
     order = [];
     clickedOrder = [];
-    playGame();
 }
 
 let playGame = () => {
@@ -91,14 +99,13 @@ let playGame = () => {
     nextLevel();
 }
 
-// green.addEventListener('click', click(0));
-// red.addEventListener('click', click(1));
-// yellow.addEventListener('click', click(2));
-// blue.addEventListener('click', click(3));
+green.addEventListener('click', () => {clearTimeout(timer); click(0)});
+red.addEventListener('click', () => {clearTimeout(timer); click(1)});
+yellow.addEventListener('click', () => {clearTimeout(timer); click(2)});
+blue.addEventListener('click', () => {clearTimeout(timer); click(3)});
 
-green.onclick = () => click(0);
-red.onclick = () => click(1);
-yellow.onclick = () => click(2);
-blue.onclick = () => click(3);
-
-playGame();
+start.addEventListener('click', () => {
+    order = [];
+    clickedOrder = [];
+    playGame();
+});
