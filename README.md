@@ -5,4 +5,6 @@
 
 Projeto da Digital Innovation One onde o desafio era criar um jogo Gênesis utilizando apenas HTML, CSS e Javascript.
 
-A aplicação agora reproduz as notas do brinquedo. Planejo acrescentar mais coisas a esse projeto com o tempo.
+A aplicação agora reproduz as notas do Simon original. Planejo acrescentar mais coisas a esse projeto com o tempo.
+
+![image](Images/Screen.png)

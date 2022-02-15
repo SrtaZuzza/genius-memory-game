@@ -1,12 +1,8 @@
 
-// 0 - green
-// 1 - red
-// 2 - yellow
-// 3 - blue
-
 let order = [];
 let clickedOrder = [];
 let score = 0;
+let record = 0;
 var timer;
 
 const blue = document.querySelector('.blue');
@@ -16,12 +12,13 @@ const yellow = document.querySelector('.yellow');
 
 const noteGreen = new Audio('Audio/Green_E4.oga');
 const noteRed = new Audio('Audio/Red_A4.oga');
-const noteYellow = new Audio('Audio/Yellow_C5.oga');
+const noteYellow = new Audio('Audio/Yellow_C5.oga'); // Actually C#5
 const noteBlue = new Audio('Audio/Blue_E5.oga');
 
 const colors = [green, red, yellow, blue];
 const notes = [noteGreen, noteRed, noteYellow, noteBlue];
 const start = document.querySelector('.start');
+const placar = document.querySelector('.placar');
 
 //ordem aleatória de cores
 let shuffleOrder = () => {
@@ -30,7 +27,7 @@ let shuffleOrder = () => {
     clickedOrder = [];
 
     for(let i in order) {
-        let elementColor = createColorElement(order[i]);
+        let elementColor = colors[order[i]];
         lightColor(elementColor, order[i], Number(i) + 1);
     }
 }
@@ -52,11 +49,10 @@ let checkOrder = () => {
     for(let i in clickedOrder) {
         if(clickedOrder[i] != order[i]){
             gameOver();
-            break;
+            return;
         }
     }
     if(clickedOrder.length == order.length) {
-        // alert(`Pontuação: ${score}\nVocê acertou! Iniciando próximo nível`);
         nextLevel();
     }
 }
@@ -64,39 +60,37 @@ let checkOrder = () => {
 //input
 let click = (color) => {
     clickedOrder[clickedOrder.length] = color;
-    createColorElement(color).classList.add('selected');
+    colors[color].classList.add('selected');
     notes[color].play();
 
     setTimeout(() => {
-        createColorElement(color).classList.remove('selected');
+    colors[color].classList.remove('selected');
     }, 250);
     timer = window.setTimeout(() => { // prevent timer too early for faster players
-        if(order.length != 0) { //because I like to play the notes before start
+        if(order.length != 0) { // because I like to play the notes before start
             checkOrder();
         }
-    }, 1500);
-}
-
-//retorna cor
-let createColorElement = (color) => {
-    return colors[color];
+    }, 1000);
 }
 
 let nextLevel = () => {
-    score++;
+    if(order.length != 0) {
+        score++;
+    }
+    placar.innerHTML = ("<h2> Score: " + score + " Record: " + record + "</h2>");
     shuffleOrder();
 }
 
 let gameOver = () => {
-    alert(`Pontuação: ${score}\nSequência incorreta!\nClique em OK para tentar novamente`);
-    order = [];
-    clickedOrder = [];
+    if(score > record) {record = score};
+    window.location = document.querySelector(".gameover").href;
+    reset();
 }
 
-let playGame = () => {
-    alert('Bem vindo ao Gênesis. Iniciando novo jogo.');
+let reset = () => {
+    order = [];
+    clickedOrder = [];
     score = 0;
-    nextLevel();
 }
 
 green.addEventListener('click', () => {clearTimeout(timer); click(0)});
@@ -105,7 +99,8 @@ yellow.addEventListener('click', () => {clearTimeout(timer); click(2)});
 blue.addEventListener('click', () => {clearTimeout(timer); click(3)});
 
 start.addEventListener('click', () => {
-    order = [];
-    clickedOrder = [];
-    playGame();
+    reset();
+    nextLevel();
 });
+
+document.querySelector(".retry").addEventListener('click', () => {gameOver()});
