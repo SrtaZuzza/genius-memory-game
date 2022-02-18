@@ -18,7 +18,8 @@ const noteBlue = new Audio('Audio/Blue_E5.oga');
 const colors = [green, red, yellow, blue];
 const notes = [noteGreen, noteRed, noteYellow, noteBlue];
 const start = document.querySelector('.start');
-const placar = document.querySelector('.placar');
+const _placar = document.getElementById('placar');
+const _record = document.getElementById('record');
 
 //ordem aleatória de cores
 let shuffleOrder = () => {
@@ -77,7 +78,8 @@ let nextLevel = () => {
     if(order.length != 0) {
         score++;
     }
-    placar.innerHTML = ("<h2> Score: " + score + " Record: " + record + "</h2>");
+    _placar.innerHTML = score;
+    _record.innerHTML = record;
     shuffleOrder();
 }
 
