@@ -1,10 +1,14 @@
 # Jogo de memória Genius 🎮🚥
 
- - Jogue agora! (em breve)
- - [Projeto original](https://github.com/SpruceGabriela/genesis-dio)
-
 Projeto da Digital Innovation One onde o desafio era criar um jogo Gênesis utilizando apenas HTML, CSS e Javascript.
 
-A aplicação agora reproduz as notas do Simon original. Planejo acrescentar mais coisas a esse projeto com o tempo.
+Uma das primeiras coisas que me chamou a atenção no projeto foi a falta das notas musicais do produto original. Para resolver esse problema fiz uma pesquisa sobre o Simon/Genius e descobri que suas notas eram E (ou nota MI), C# (não a linguagem, mas a nota DÓ), A (nota LÁ), e E novamente, mas numa escala inferior. Com isso escutei o aparelho original em vídeos da internet e defini as notas da seguinte forma: E4, A4, C#5 e E5. Após gravar cada uma em minha DAW, acrescentei elas no projeto em suas respectivas cores (verde, vermelho, amarelo e azul).
 
+## Experimente o jogo!
+ - [Genius Memory Game](https://srtazuzza.github.io/genius-memory-game/)
+
+ ## Conheça o projeto em que esse repositório foi inspirado:
+ - [Projeto original](https://github.com/SpruceGabriela/genesis-dio)
+
+### Exemplo:
 ![image](Images/Screen.png)
